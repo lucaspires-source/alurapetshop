@@ -1,14 +1,9 @@
 {
   "profile": [
     {
-      "nome": "Lucas",
-      "email": "lucas@ribeiro.com",
+      "nome": "Lucas Pires",
+      "email": "pires.lucas94@gmail.com",
       "id": 1
-    },
-    {
-      "nome": "Rodrigo",
-      "email": "1@2",
-      "id": 2
     }
   ]
 }
