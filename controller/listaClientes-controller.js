@@ -15,25 +15,29 @@ const criarNovaLinha = (nome, email, id) => {
 
   linhaNovoCliente.innerHTML = conteudo;
   linhaNovoCliente.dataset.id = id;
-  console.log(id)
+  console.log(id);
   return linhaNovoCliente;
 };
 
-const tabela = document.querySelector('[data-tabela]');
-tabela.addEventListener('click', (e) => {
+const tabela = document.querySelector("[data-tabela]");
+
+tabela.addEventListener("click", async (e) => {
   let confirmaBotaoDeletar =
-    e.target.className === 'botao-simples botao-simples--excluir';
+    e.target.className === "botao-simples botao-simples--excluir";
 
   if (confirmaBotaoDeletar) {
-    const linhaCliente = e.target.closest('[data-id]');
+    const linhaCliente = e.target.closest("[data-id]");
     let id = linhaCliente.dataset.id;
-    clienteService.removeCliente(id).then(() => {
-      linhaCliente.remove();
-    });
+    await clienteService.removeCliente(id);
+    linhaCliente.remove();
   }
 });
-clienteService.listaClientes().then((data) => {
-  data.forEach((el) => {
-    tabela.appendChild(criarNovaLinha(el.nome, el.email,el.id));
+
+const render = async () => {
+  const listaClientes = await clienteService.listaClientes();
+  listaClientes.forEach((el) => {
+    tabela.appendChild(criarNovaLinha(el.nome, el.email, el.id));
   });
-});
+};
+
+render();
