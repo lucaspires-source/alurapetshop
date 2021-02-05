@@ -1,7 +1,10 @@
 const listaClientes = () => {
     return fetch('http://localhost:3000/profile')
     .then(res =>{
-        return res.json()
+        if(res.ok){
+            return res.json()
+        }
+        throw new Error('Não foi possível listar os clientes')
     } )
 }
 
@@ -17,7 +20,10 @@ const criaCliente = (nome,email) =>{
         })
     })
     .then(res =>{
-        return res.body
+        if(res.ok){
+            return res.body
+        }
+        throw new Error('Não foi possível criar um cliente')
     })
 }
 
@@ -25,14 +31,21 @@ const removeCliente =  (id) =>{
 return fetch(`http://localhost:3000/profile/${id}` ,{
         method:'DELETE',
     })
+    .then( res => { 
+        if(!res.ok){
+        throw new Error('Não foi possível deletar um cliente')
+        }
+    })
 }
 
 const detalhaCliente = (id) => {
     return fetch(`http://localhost:3000/profile/${id}`)
         .then(res => {
-
-            return res.json()
-
+            if(res.ok){
+                return res.json()
+            }
+        
+            throw new Error('Não foi possível detalhar um cliente')
         })
 }
 const atualizaCliente = (id,nome,email) =>{
@@ -47,7 +60,10 @@ const atualizaCliente = (id,nome,email) =>{
         })
     })
     .then(res =>{
-        return res.body
+        if(res.ok){
+            return res.json()
+        }
+        throw new Error('Não foi possível detalhar um cliente')
     })
 }
 
